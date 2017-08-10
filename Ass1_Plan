@@ -18,22 +18,60 @@ Activity
       OnCreate(){
           Onclick()AddFriendActivity()
           Onclick()ShowFriendListActivity()
+          Onclick()AddMeetingActivity()
+          Onclick()ShowMeetingListActivity()
       }
   }
-  AddActivity <- add.xml
+  AddFriendActivity <- addFriend.xml
   {
       OnCreate(){
         OnClieck(){
-          //submit form -> FriendList.xml
+          //submit form -> FriendList
         }
       }
   }
-  ShowFriendList <- friends.xml
+  ShowFriendListActivity <- friends.xml
   {
       OnCreate(){
           List<Friend> 
-          Onclick()RemoveFreiendActivity()
+          Onclick()RemoveFreiend() -> dialog -> remove from FriendList -> Recall ShowFriendList
           Onclick()EditFriendActivity()
       }
       CLASS ShowfriendAdapter <- FriendItem.xml
+  }
+  EditFriendActivity <- editFriend.xml
+  {
+      OnCreate(){
+        OnClieck(){
+          //show friend detial 
+          //submit form -> FriendList
+        }
+      }
+  }
+  
+  AddMeetingActivity <- addMeeting.xml
+  {
+      OnCreate(){
+        OnClieck(){
+          //submit form -> MeetingList
+        }
+      }
+  }
+  ShowMeetingListActivity <- meetings.xml
+  {
+      OnCreate(){
+          List<Meeting> 
+          Onclick()RemoveMeeting() -> dialog -> remove from MeetingList -> Recall ShowMeetingList
+          Onclick()EditMeetingActivity()
+      }
+      CLASS ShowMeetingsAdapter <- MeetingItem.xml
+  }
+  EditMeetingActivity <- editMeeting.xml
+  {
+      OnCreate(){
+        OnClieck(){
+          //show meeting detial 
+          //submit form -> MeetingList
+        }
+      }
   }
