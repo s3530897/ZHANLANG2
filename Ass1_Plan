@@ -1,0 +1,16 @@
+Model
+  Friend
+    Id  String
+    Name  String
+    Mail  String
+    Birthday Date
+    Photo String(path)
+  Meeting
+    Id String
+    Title String
+    Name  String
+    StartTime Date
+    EndTime Date
+    Friends  List<Friend>
+Activity
+  MainActivity <- activity_main
