@@ -13,4 +13,27 @@ Model
     EndTime Date
     Friends  List<Friend>
 Activity
-  MainActivity <- activity_main
+  MainActivity <- activity_main.xml
+  {
+      OnCreate(){
+          Onclick()AddFriendActivity()
+          Onclick()ShowFriendListActivity()
+      }
+  }
+  AddActivity <- add.xml
+  {
+      OnCreate(){
+        OnClieck(){
+          //submit form -> FriendList.xml
+        }
+      }
+  }
+  ShowFriendList <- friends.xml
+  {
+      OnCreate(){
+          List<Friend> 
+          Onclick()RemoveFreiendActivity()
+          Onclick()EditFriendActivity()
+      }
+      CLASS ShowfriendAdapter <- FriendItem.xml
+  }
