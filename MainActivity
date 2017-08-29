@@ -1,0 +1,44 @@
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Button addFriendButton= (Button)findViewById(R.id.AddFriendButton);
+        Button showFriendButton= (Button)findViewById(R.id.ShowFriendButton);
+        Button addMeetingButton= (Button)findViewById(R.id.AddMeetingButton);
+        Button showMeetingButton= (Button)findViewById(R.id.ShowMeetingButton);
+        addFriendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(MainActivity.this,AddFriend.class);
+                startActivity(intent);
+            }
+        });
+        showFriendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(MainActivity.this,ShowFriend.class);
+                startActivity(intent);
+            }
+        });
+        addMeetingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,AddMeeting.class);
+                startActivity(intent);
+            }
+        });
+        showMeetingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent =new Intent(MainActivity.this,ShowMeeting.class);
+                startActivity(intent);
+            }
+        });
+
+        List<Friend> friendList=new ArrayList<Friend>();
+            Toast.makeText(this, "bbb",Toast.LENGTH_LONG).show();
+
+    }
+}
