@@ -1,0 +1,19 @@
+ mTask = new MyTask();
+ mTask.execute();
+ 
+ private class MyTask extends AsyncTask<String, Integer, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            try {
+                while (true) {
+                    Intent startIntent = new Intent(MainActivity.this, MyService.class);
+                    startService(startIntent);
+                    Thread.sleep(10000);
+                    stopService(startIntent);
+                    }
+        } catch (Exception e) {
+            System.out.println("ERROR");
+        }
+        return null;
+    }
