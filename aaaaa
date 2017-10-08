@@ -1,0 +1,142 @@
+mTask = new MyTask();
+        mTask.execute();
+
+
+ Button button1 = (Button) findViewById(R.id.button1);
+        Button button2 =(Button) findViewById(R.id.button2);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //sort needkey
+                List<DummyLocationService.FriendLocation> friendLocationList=new ArrayList<>();
+                int l=friendLocationList.size();
+                System.out.println("L:"+l);
+                for(int i=l-1;i>-1;i--){
+                    friendLocationList.add(GlobalClass.friendLocationList.get(i));
+                    GlobalClass.friendLocationList.remove(i);
+                }
+                for(int i=l-1;i>-1;i--) {
+                    DummyLocationService.FriendLocation friendLocation = friendLocationList.get(i);
+                    for (int j = i - 1; j > -1; j--) {
+                        if (friendLocation.distanceConsum > friendLocationList.get(j).distanceConsum)
+                            friendLocation = friendLocationList.get(j);
+                    }
+                    GlobalClass.friendLocationList.add(l - i - 1, friendLocation);
+                }
+                    //print ALL
+                    for (int i = 0; i < GlobalClass.friendLocationList.size(); i++) {
+
+                        System.out.println(i + 1);
+                        System.out.println("Name:" + GlobalClass.friendLocationList.get(i).name);
+                        System.out.println("Location:" + GlobalClass.friendLocationList.get(i).latitude + "," + GlobalClass.friendLocationList.get(i).longitude);
+                        System.out.println("PreDistance:" + GlobalClass.friendLocationList.get(i).distanceConsum);
+                        System.out.println("PreTime:" + GlobalClass.friendLocationList.get(i).timeConsum);
+                        System.out.println("SuggestionLocation:" + GlobalClass.friendLocationList.get(i).suggestLocationLat + "," + GlobalClass.friendLocationList.get(i).suggestLocationLon);
+                    }
+            }
+        });
+
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mTask.cancel(true);
+            }
+        });
+        
+        
+        
+        
+        
+         int j=0;
+        while (j<dummys.size()+1){
+            if(j==dummys.size()){
+            new AlertDialog.Builder(MainActivity.this)
+                    .setTitle("Meeting")
+                    .setMessage("Start Meeting")
+                    .setPositiveButton("start",null)
+                    .setNegativeButton("end", null)
+                    .show();
+            }else{
+             new AlertDialog.Builder(MainActivity.this)
+                .setTitle("Meeting")
+                .setMessage("Do you want to Meet With "+GlobalClass.friendLocationList.get(j).name+"\n")
+                .setPositiveButton("Cancel all", null)
+                .setNeutralButton("yes",null)
+                .setNegativeButton("next", null)
+                .show();
+            }
+            j++;
+        }
+        
+        
+        private void showLocation(Location location) {
+        String locationStr = "维度：" + location.getLatitude() + "\n"
+                + "经度：" + location.getLongitude();
+        System.out.println(locationStr);
+        Toast.makeText(MainActivity.this, locationStr, Toast.LENGTH_LONG).show();
+    }
+    
+     public final LocationListener mLocationListener01 = new LocationListener() {
+        @Override
+        public void onLocationChanged(Location location) {
+            // updateToNewLocation(location);
+        }
+
+
+        @Override
+        public void onProviderDisabled(String provider) {
+            // updateToNewLocation(null);
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+        }
+    };
+
+
+        @Override
+        public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+            switch (requestCode) {
+                case 0: {
+                    if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                        System.out.println("know nothing");
+                        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
+                            System.out.println("permission problem");}else {
+                        Location location = locationManager.getLastKnownLocation(provider);
+                        System.out.println("LOCATION"+location);
+                        double lat = location.getLatitude();
+                        double lng = location.getLongitude();
+                        System.out.println("LAT:"+lat);
+                        System.out.println("LNG:"+lng);
+                        Toast.makeText(MainActivity.this,"LAT:"+lat+"LNG:"+lng,Toast.LENGTH_LONG).show();
+                        System.out.println("know something");}
+                    } else {
+                        // 权限被用户拒绝了，可以提示用户,关闭界面等等。
+                    }
+                    return;
+                    }
+            }
+        }
+    private class MyTask extends AsyncTask<String, Integer, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            try {
+                    Intent startIntent = new Intent(MainActivity.this, MyService.class);
+                    startService(startIntent);
+                    Thread.sleep(1000);
+                    stopService(startIntent);
+
+        } catch (Exception e) {
+            System.out.println("aaaaaaa");
+        }
+        return null;
+    }
+}
+
+
+
